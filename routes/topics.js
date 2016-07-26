@@ -5,23 +5,31 @@ const router = express.Router();
 const knex = require('../knex');
 const ev = require('express-validation');
 const validations = require('../validations/topics');
+const { camelizeKeys, decamelizeKeys } = require('humps');
 
 router.get('/topics', (req, res, next) => {
   knex('topics')
-  .orderBy('id', 'DESC')
+  .orderBy('id')
   .then((topics) => {
-    res.send(topics);
+    const allTopics = camelizeKeys(topics);
+
+    res.send(allTopics);
   })
   .catch((err) => {
     next(err);
   });
 });
 
-router.post('/topics', ev(validations.post), (_req, res, next) => {
+router.post('/topics', ev(validations.post), (req, res, next) => {
+  const topic = req.body;
+  const row = decamelizeKeys(newPost);
+
   knex('topics')
-    .insert(req.body, '*')
+    .insert(topic, '*')
     .then((topics) => {
-      res.send(topics[0]);
+      const postTopic = camelizeKeys(topics);
+
+      res.send(postTopic[0]);
     })
     .catch((err) => {
       next(err);

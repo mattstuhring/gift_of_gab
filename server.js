@@ -10,7 +10,6 @@ const port = process.env.PORT || 8000;
 
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const cookieSession = require('cookie-session');
 
 const posts = require('./routes/posts');
 const topics = require('./routes/topics');
@@ -26,22 +25,25 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 app.use(bodyParser.json());
-app.use(cookieParser());
-app.use(cookieSession({
-  name: 'blueit',
-  secret: process.env.SESSION_SECRET
-}));
 
-// app.use(posts);
+app.use(cookieParser());
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(posts);
 app.use(topics);
-// app.use(users);
+app.use(users);
+
+app.use((_req, res, _next) => {
+  res.sendStatus(404);
+});
 
 app.use((err, _req, res, _next) => {
   if (err.status) {
-    return res.status(err.status).send(err);
+    return res.sendStatus(err.status);
   }
 
-  console.error(err.stack);
+  console.error(err.status);
   res.sendStatus(500);
 });
 
