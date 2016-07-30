@@ -38,9 +38,11 @@
                 <h4>Add a Topic</h4>
                 <div class="input-field">
                   <input ng-class="{'valid': userTopic.topName.$valid, 'invalid': userTopic.topName.$invalid && userTopic.topName.$dirty}" name="topName" type="text" ng-model="topic.topicToAdd" required ng-minlength=3>
-                  <label for="topic">Name of Topic</label>
-                  <a href="" ng-click="topic.addTopic()" class="btn waves-effect waves-light" type="submit" >Submit<i class="material-icons right">send</i></a>
+                  <label ng-class="{'green-text text-lighten-2': userTopic.topName.$valid, 'red-text text-lighten-2': userTopic.topName.$invalid && userTopic.topName.$dirty}" for="topName">Name of Topic</label>
+                  <span ng-show="userTopic.topName.$error.minlength">must be at least 3 characters</span>
+                  <div class="section"></div>
                 </div>
+                <a href="" ng-click="topic.addTopic()" class="btn waves-effect waves-light" type="submit" >Submit<i class="material-icons right">send</i></a>
               </form>
             </div>
             <div class="col s6">
