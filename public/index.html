@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="giftGab">
+  <head>
+    <meta charset="utf-8">
+    <title>Gift of Gab</title>
+    <link rel="stylesheet" href="/css/style.css" charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+  <body>
+    <div class="container">
+
+      <!-- NAV BAR -->
+      <nav class="black">
+        <div class="nav-wrapper">
+          <a href="#!" class="brand-logo">Gift of Gab</a>
+          <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="#">Topics</a></li>
+            <li><a href="#">Posts</a></li>
+          </ul>
+          <ul class="side-nav" id="mobile-demo">
+            <li><a href="#">Topics</a></li>
+            <li><a href="#">Posts</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="section"></div>
+
+      <!-- Input for adding topic -->
+      <div ng-controller="TopicCtrl as topic">
+        <div class="row">
+          <div class="col s12">
+            <div class="col s6">
+              <form class="row">
+                <h4>Add a Topic</h4>
+                <div class="input-field">
+                  <input name="topName" type="text" ng-model="topic.topicToAdd">
+                  <label for="topic">Name of Topic</label>
+                  <a href="" ng-click="topic.addTopic()" class="btn waves-effect waves-light" type="submit" >Submit<i class="material-icons right">send</i></a>
+                </div>
+              </form>
+            </div>
+            <div class="col s6">
+              <div class="collection with-header">
+                <h4 class="collection-header center">Topics</h4>
+                <a ng-repeat="top in topic.topics" href="#!" class="collection-item">{{top.name}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+  </body>
+</html>

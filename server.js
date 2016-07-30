@@ -10,6 +10,7 @@ const port = process.env.PORT || 8000;
 
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const morgan = require('morgan');
 
 const posts = require('./routes/posts');
 const topics = require('./routes/topics');
@@ -19,9 +20,16 @@ const app = express();
 
 app.disable('x-powered-by');
 
-if (process.env.NODE_ENV !== 'test') {
-  const morgan = require('morgan');
-  app.use(morgan('short'));
+switch (app.get('env')) {
+  case 'development':
+    app.use(morgan('dev'));
+    break;
+
+  case 'production':
+    app.use(morgan('short'));
+    break;
+
+  default:
 }
 
 app.use(bodyParser.json());
@@ -34,10 +42,13 @@ app.use(posts);
 app.use(topics);
 app.use(users);
 
+
+// error catch all 400
 app.use((_req, res, _next) => {
   res.sendStatus(404);
 });
 
+// server error handler
 app.use((err, _req, res, _next) => {
   if (err.status) {
     return res.sendStatus(err.status);
