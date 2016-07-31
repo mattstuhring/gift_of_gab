@@ -9,10 +9,22 @@
 
     this.addTopic = () => {
       this.topics.push({ name: this.topicToAdd });
-      console.log(this.topicToAdd);
       this.topicToAdd = '';
+    };
+
+    this.removeTopic = (topic) => {
+      this.topics.pop({ name: this.topicToAdd });
+      this.topicToAdd = '';
+    };
+  });
 
 
+  app.controller('PostCtrl', function() {
+    this.postToAdd = '';
+    this.posts = [];
+
+    this.addPost = () => {
+      this.items.push({ name: this.posts });
     };
   });
 }());
