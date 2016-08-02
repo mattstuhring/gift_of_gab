@@ -5,7 +5,7 @@
     <title>Gift of Gab</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css" charset="utf-8">
+    <link rel="stylesheet" href="css/style.css" charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
   <body>
@@ -13,7 +13,7 @@
     <!-- NAV BAR -->
       <nav class="black">
         <div class="nav-wrapper">
-          <a href="#!" class="brand-logo">Gift of Gab</a>
+          <a href="#!" class="brand-logo">The Gift of Gab</a>
           <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
           <ul class="right hide-on-med-and-down">
             <li><a href="#">Topics</a></li>
@@ -29,36 +29,64 @@
       <div class="section"></div>
 
       <!-- Input for adding topic -->
-      <div class="container" ng-controller="TopicCtrl as topic">
-        <div class="row">
-          <div class="col s12">
-            <div class="col s6">
-              <form class="row" name="userTopic" novalidate>
-                <h4>Add a Topic</h4>
-                <div class="input-field">
-                  <input ng-class="{'valid': userTopic.topName.$valid, 'invalid': userTopic.topName.$invalid && userTopic.topName.$dirty}" name="topName" type="text" ng-model="topic.topicToAdd" required ng-minlength=3>
-                  <label ng-class="{'green-text text-lighten-2': userTopic.topName.$valid, 'red-text text-lighten-2': userTopic.topName.$invalid && userTopic.topName.$dirty}" for="topName">Name of Topic</label>
-                  <span ng-show="userTopic.topName.$error.minlength">must be at least 3 characters</span>
-                  <div class="section"></div>
-                </div>
-                <a href="" ng-click="topic.addTopic()" class="btn waves-effect waves-light" type="submit" >Submit<i class="material-icons right">send</i></a>
-              </form>
-            </div>
+      <div class="container" ng-controller="PostCtrl as post">
+        <div class="row" ng-controller="TopicCtrl as topic">
 
+          <div class="col s6">
+            <form class="row" name="postForm" ng-submit="post.addPost()" novalidate>
+              <h4>Create a Post</h4>
+              <div class="input-field col s12">
+                <select ng-model="topic.selectedTopicId">
+                  <option value="" disabled selected>Choose your topic</option>
+                  <option value="{{ top.id }}" ng-repeat="top in topic.topics  | filter: { name: topic.topicToAdd } | orderBy : 'name'">{{top.name}}</option>
+                </select>
+                <label>Select Topic</label>
+              </div>
+              <div class="input-field col s12">
+                <input ng-model="post.postToAdd.title" name="title" type="text">
+                <label for="title">Title</label>
+              </div>
+              <div class="input-field col s12">
+                <input ng-model="post.postToAdd.image" name="image" type="text">
+                <label for="image">Image URL</label>
+              </div>
+              <div class="input-field col s12">
+                <textarea ng-model="post.postToAdd.gab" class="materialize-textarea" name="gab" type="text"></textarea>
+                <label for="gab">Gab:</label>
+              </div>
+              <a href="" ng-click="post.addPost(topic.selectedTopicId)" class="btn waves-effect waves-light" type="submit" >Submit<i class="material-icons right">send</i></a>
+            </form>
+          </div>
 
-            <div>
-              <ul class="collection with-header col s5 offset-s1 collect">
+          <div class="col s6">
+            <div class="col s12">
+              <ul class="collection with-header">
                 <li class="collection-header"><h4>List of Topics</h4></li>
-                <input name="filter" type="text" ng-model="filter.topicToAdd" placeholder="Filter here">
-                <li class="collection-item" ng-repeat="top in topic.topics | filter: { name: filter.topicToAdd }"><div>{{top.name}}<a ng-click="topic.removeTopic(top)" href="#!" class="secondary-content"><i class="material-icons">delete</i></a></div></li>
+                <form class="col s12" name="topicForm" ng-submit="topic.addTopic()">
+                  <div class="row">
+                    <div class="input-field col s8">
+                      <input ng-class="{'valid': userTopic.topic.$valid, 'invalid': userTopic.topic.$invalid && userTopic.topic.$dirty}" name="topic" type="text" ng-model="topic.topicToAdd" required ng-minlength=3>
+                      <label ng-class="{'green-text text-lighten-2': userTopic.topic.$valid, 'red-text text-lighten-2': userTopic.topic.$invalid && userTopic.topic.$dirty}" for="topic">Add Topic</label>
+                      <span ng-show="userTopic.topic.$error.minlength">must be at least 3 characters</span>
+                    </div>
+                    <div class="col s4">
+                      <a href="" ng-click="topic.addTopic()" class="btn waves-effect waves-light topsubmitbtn" type="submit">Submit</a>
+                    </div>
+                  </div>
+                </form>
+                <div class="collect col s12">
+
+                  <li class="collection-item" ng-repeat="top in topic.topics | filter: { name: topic.topicToAdd } | orderBy : 'name' "><div>{{top.name}}<a ng-click="topic.removeTopic(top)" href="#!" class="secondary-content"><i class="material-icons">delete</i></a></div></li>
+                </div>
               </ul>
             </div>
+          </div>
 
 
 
 
-            <div class="col s12" ng-repeat="top in topic.topics">
-              <h3 class="header">{{top.name}}</h3>
+          <div class="row">
+            <div class="col s12" ng-repeat="p in post.posts">
               <div class="card horizontal">
                 <div class="card-image">
                   <img class="responsive-img" src="http://fillmurray.com/200/300">
@@ -66,30 +94,32 @@
                 <div class="card-stacked">
                   <div class="card-content">
                     <div class="row">
-                      <form class="col s12">
-                        <div class="row">
-                          <div class="input-field col s12">
-                            <textarea id="post" class="materialize-textarea"></textarea>
-                            <label for="post">Gab:</label>
-                            <a href="" ng-click="topic.addTopic()" class="btn waves-effect waves-light" type="submit" >Post<i class="material-icons right">send</i></a>
-                          </div>
-                        </div>
-                      </form>
+                      <div class="col s12">
+                        <h6 class="right">{{topic.getTopicName(p.topicId)}}</h6>
+                        <h2>{{p.title}}</h2>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s12">
+                        <h5>{{p.gab}}</h5>
+                      </div>
                     </div>
                   </div>
                   <div class="card-action">
                     <a ng-click="showme=true" href="#">Comment</a>
                     <span ng-show="showme" class="card-content">
-                    <form class="col s12">
-                      <div class="row">
-                        <div class="input-field col s12">
-                          <textarea id="comment" class="materialize-textarea"></textarea>
-                          <label for="comment"></label>
-                          <a href="" ng-click="topic.addComment()" class="btn waves-effect waves-light" type="submit" >Post<i class="material-icons right">send</i></a>
+                      <form class="col s12">
+                        <div class="row">
+                          <div class="input-field col s12">
+                            <textarea id="comment" class="materialize-textarea"></textarea>
+                            <label for="comment"></label>
+                            <a href="" ng-click="topic.addComment()" class="btn waves-effect waves-light" type="submit" >Post<i class="material-icons right">send</i></a>
+                            <a ng-click="showme=false" href="#">Hide</a>
+                          </div>
                         </div>
-                      </div>
-                    </form>
-                  </span>
+                      </form>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
