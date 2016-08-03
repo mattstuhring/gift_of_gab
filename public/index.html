@@ -34,10 +34,10 @@
 
           <div class="col s6">
             <form class="row" name="postForm" ng-submit="post.addPost()" novalidate>
-              <h4>Create a Post</h4>
+              <h4>Compose a Gab</h4>
               <div class="input-field col s12">
                 <select ng-model="topic.selectedTopicId">
-                  <option value="" disabled selected>Choose your topic</option>
+                  <option value="" disabled selected></option>
                   <option value="{{ top.id }}" ng-repeat="top in topic.topics  | filter: { name: topic.topicToAdd } | orderBy : 'name'">{{top.name}}</option>
                 </select>
                 <label>Select Topic</label>
@@ -47,12 +47,12 @@
                 <label for="title">Title</label>
               </div>
               <div class="input-field col s12">
-                <input ng-model="post.postToAdd.image" name="image" type="text">
-                <label for="image">Image URL</label>
+                <input ng-model="post.postToAdd.imageUrl" name="imageUrl" type="text">
+                <label for="imageUrl">Image URL</label>
               </div>
               <div class="input-field col s12">
-                <textarea ng-model="post.postToAdd.gab" class="materialize-textarea" name="gab" type="text"></textarea>
-                <label for="gab">Gab:</label>
+                <textarea ng-model="post.postToAdd.description" class="materialize-textarea" name="description" type="text"></textarea>
+                <label for="description">The Gab:</label>
               </div>
               <a href="" ng-click="post.addPost(topic.selectedTopicId)" class="btn waves-effect waves-light" type="submit" >Submit<i class="material-icons right">send</i></a>
             </form>
@@ -89,7 +89,8 @@
             <div class="col s12" ng-repeat="p in post.posts">
               <div class="card horizontal">
                 <div class="card-image">
-                  <img class="responsive-img" src="http://fillmurray.com/200/300">
+                  <img class="responsive-img" src="{{p.imageUrl}}">
+                  <!-- <img class="responsive-img" src="http://fillmurray.com/200/300"> -->
                 </div>
                 <div class="card-stacked">
                   <div class="card-content">
@@ -101,7 +102,7 @@
                     </div>
                     <div class="row">
                       <div class="col s12">
-                        <h5>{{p.gab}}</h5>
+                        <h5>{{p.description}}</h5>
                       </div>
                     </div>
                   </div>
@@ -136,5 +137,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
   </body>
 </html>

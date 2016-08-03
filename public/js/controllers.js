@@ -3,45 +3,30 @@
 
   $(".button-collapse").sideNav();
 
+  const server = '/';
+
   const app = angular.module('giftGab');
 
-  app.controller('TopicCtrl', function($scope) {
+  app.controller('TopicCtrl', TopicCtrl);
+  app.controller('PostCtrl', PostCtrl);
+
+  TopicCtrl.$inject = ['$scope', '$http', 'topicsSvc'];
+  PostCtrl.$inject = ['$http', 'postsSvc'];
+
+  function TopicCtrl($scope, $http, topicsSvc) {
     this.topicToAdd = '';
     this.selectedTopicId = '';
-    this.topics = [
-      {
-        id: 1,
-        name: 'Kicks'
-      },
-      {
-        id: 2,
-        name: 'Style'
-      },
-      {
-        id: 3,
-        name: 'Art'
-      },
-      {
-        id: 4,
-        name: 'Technology'
-      },
-      {
-        id: 5,
-        name: 'Dopeness'
-      },
-      {
-        id: 6,
-        name: 'Food and Drink'
-      },
-      {
-        id: 7,
-        name: 'Music'
-      }
-    ];
+    this.topics = [];
 
-    this.addTopic = (topic) => {
-      this.topics.push({ name: this.topicToAdd });
-      this.topicToAdd = '';
+    this.addTopic = () => {
+      topicsSvc.addTopic(this.topicToAdd)
+        .then((topic) => {
+          this.topics.push(topic);
+          this.topicToAdd = '';
+        })
+        .catch((err) => {
+          throw err;
+        });
     };
 
     this.removeTopic = (top) => {
@@ -67,10 +52,22 @@
         })
       })
     });
-  });
+
+    const activate = () => {
+      topicsSvc.getTopics()
+        .then((topicsList) => {
+          this.topics = topicsList;
+        })
+        .catch((err) => {
+          throw err;
+        });
+    };
+
+    activate();
+  }
 
 
-  app.controller('PostCtrl', function() {
+  function PostCtrl($http, postsSvc) {
     this.postToAdd = {};
     this.posts = [];
 
@@ -79,16 +76,16 @@
         {
           topicId: topicId,
           title: this.postToAdd.title,
-          image: this.postToAdd.image,
-          gab: this.postToAdd.gab
+          imageUrl: this.postToAdd.imageUrl,
+          description: this.postToAdd.description
         }
       );
 
       console.log(this.posts);
       this.postToAdd.title = '';
       this.postToAdd.topicId = '';
-      this.postToAdd.image = '';
-      this.postToAdd.gab = '';
+      this.postToAdd.imageUrl = '';
+      this.postToAdd.description = '';
     };
-  });
+  }
 }());

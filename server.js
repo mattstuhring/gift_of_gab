@@ -54,7 +54,7 @@ app.use((err, _req, res, _next) => {
     return res.sendStatus(err.status);
   }
 
-  console.error(err.status);
+  console.error(err);
   res.sendStatus(500);
 });
 
