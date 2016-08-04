@@ -9,9 +9,11 @@
 
   app.controller('TopicCtrl', TopicCtrl);
   app.controller('PostCtrl', PostCtrl);
+  app.controller('AuthCtrl', AuthCtrl);
 
   TopicCtrl.$inject = ['$scope', '$http', 'topicsSvc'];
   PostCtrl.$inject = ['$http', 'postsSvc'];
+  AuthCtrl.$inject = ['auth', '$location', '$cookies'];
 
   function TopicCtrl($scope, $http, topicsSvc) {
     this.topicToAdd = '';
@@ -19,7 +21,7 @@
     this.topics = [];
 
     this.addTopic = () => {
-      topicsSvc.addTopic(this.topicToAdd)
+      topicsSvc.postTopic(this.topicToAdd)
         .then((topic) => {
           this.topics.push(topic);
           this.topicToAdd = '';
@@ -86,6 +88,41 @@
       this.postToAdd.topicId = '';
       this.postToAdd.imageUrl = '';
       this.postToAdd.description = '';
+    };
+
+    const activate = () => {
+      postsSvc.getPosts()
+        .then((postsList) => {
+          this.posts = postsList;
+        })
+        .catch((err) => {
+          throw err;
+        });
+    };
+
+    activate();
+  }
+
+  function AuthCtrl(auth, $location, $cookies) {
+    this.email = '';
+    this.password = '';
+
+    this.isLoggedIn = () => {
+      return $cookies.get('loggedIn');
+    }
+
+    this.login = () => {
+      auth.login(this.email, this.password)
+        .then((user) => {
+          $location.path('/');
+        })
+        .catch((err) => {
+          alert('Login Failed');
+        });
+    };
+
+    this.logout = () => {
+      auth.logout();
     };
   }
 }());

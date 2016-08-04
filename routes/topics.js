@@ -6,6 +6,7 @@ const knex = require('../knex');
 const ev = require('express-validation');
 const validations = require('../validations/topics');
 const { camelizeKeys, decamelizeKeys } = require('humps');
+const { checkAuth } = require('../middleware');
 
 router.get('/topics', (req, res, next) => {
   knex('topics')
@@ -20,7 +21,7 @@ router.get('/topics', (req, res, next) => {
   });
 });
 
-router.post('/topics', ev(validations.post), (req, res, next) => {
+router.post('/topics', checkAuth, ev(validations.post), (req, res, next) => {
   const topic = req.body;
   const row = decamelizeKeys(topic);
 

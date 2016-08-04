@@ -1,5 +1,5 @@
 (function() {
   'use strict';
 
-  angular.module('giftGab', []);
+  angular.module('giftGab', ['ngCookies']);
 }());
