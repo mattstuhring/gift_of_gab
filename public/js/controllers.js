@@ -3,8 +3,6 @@
 
   $(".button-collapse").sideNav();
 
-  const server = '/';
-
   const app = angular.module('giftGab');
 
   app.controller('TopicCtrl', TopicCtrl);
@@ -17,7 +15,6 @@
 
   function TopicCtrl($scope, $http, topicsSvc) {
     this.topicToAdd = '';
-    this.selectedTopicId = '';
     this.topics = [];
 
     this.addTopic = () => {
@@ -49,9 +46,6 @@
     $scope.$watch('topic.topics.length', () => {
       $scope.$$postDigest(() => {
         $('select').material_select();
-        $('select').on('change', (e) => {
-          this.selectedTopicId = Number.parseInt($(e.target).val());
-        })
       })
     });
 
@@ -72,23 +66,52 @@
   function PostCtrl($http, postsSvc) {
     this.postToAdd = {};
     this.posts = [];
-
-    this.addPost = (topicId) => {
-      this.posts.push(
-        {
-          topicId: topicId,
-          title: this.postToAdd.title,
-          imageUrl: this.postToAdd.imageUrl,
-          description: this.postToAdd.description
-        }
-      );
-
-      console.log(this.posts);
-      this.postToAdd.title = '';
-      this.postToAdd.topicId = '';
-      this.postToAdd.imageUrl = '';
-      this.postToAdd.description = '';
+    this.postForm = {
+      topicId: ''
     };
+    this.topicId = ''
+
+    this.addPost = () => {
+      console.log(this.postForm);
+      console.log(this.topicId);
+
+      // this.posts.push(
+      //   {
+      //     userId: this.userId,
+      //     topicId: this.selectedTopicId,
+      //     title: this.postToAdd.title,
+      //     imageUrl: this.postToAdd.imageUrl,
+      //     description: this.postToAdd.description,
+      //     rating: 0
+      //   });
+      //   console.log(this.posts);
+      //
+      // this.postToAdd.title = '';
+      // this.postToAdd.imageUrl = '';
+      // this.postToAdd.description = '';
+    };
+
+    this.upRating = (post) => {
+      post.rating += 1;
+      postsSvc.upRating(post)
+        .then((val) => {
+          this.post = val;
+        })
+        .catch((err) => {
+          throw err;
+        });
+    };
+
+    this.downRating = (post) => {
+      post.rating -= 1;
+      postsSvc.upRating(post)
+        .then((val) => {
+          this.post = val;
+        })
+        .catch((err) => {
+          throw err;
+        });
+    }
 
     const activate = () => {
       postsSvc.getPosts()
@@ -104,7 +127,7 @@
   }
 
   function AuthCtrl(auth, $location, $cookies) {
-    this.email = '';
+    this.username = '';
     this.password = '';
 
     this.isLoggedIn = () => {
@@ -112,7 +135,7 @@
     }
 
     this.login = () => {
-      auth.login(this.email, this.password)
+      auth.login(this.username, this.password)
         .then((user) => {
           $location.path('/');
         })

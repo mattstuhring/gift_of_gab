@@ -13,7 +13,7 @@ router.post('/api/token', (req, res, next) => {
   let user;
 
   knex('users')
-    .where('email', req.body.email)
+    .where('username', req.body.username)
     .first()
     .then((row) =>{
       if (!row) {

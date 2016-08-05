@@ -15,6 +15,7 @@ const morgan = require('morgan');
 const posts = require('./routes/posts');
 const topics = require('./routes/topics');
 const users = require('./routes/users');
+const token = require('./routes/token');
 
 const app = express();
 
@@ -41,7 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(posts);
 app.use(topics);
 app.use(users);
-
+app.use(token);
 
 // error catch all 400
 app.use((_req, res, _next) => {
