@@ -10,7 +10,7 @@
   app.controller('AuthCtrl', AuthCtrl);
 
   TopicCtrl.$inject = ['$scope', '$http', 'topicsSvc'];
-  PostCtrl.$inject = ['$http', 'postsSvc'];
+  PostCtrl.$inject = ['$scope', '$http', 'postsSvc'];
   AuthCtrl.$inject = ['auth', '$location', '$cookies'];
 
   function TopicCtrl($scope, $http, topicsSvc) {
@@ -63,17 +63,15 @@
   }
 
 
-  function PostCtrl($http, postsSvc) {
+  function PostCtrl($scope, $http, postsSvc) {
+    this.postForm = {};
     this.postToAdd = {};
     this.posts = [];
-    this.postForm = {
-      topicId: ''
-    };
-    this.topicId = ''
+    this.topics = [];
 
     this.addPost = () => {
+
       console.log(this.postForm);
-      console.log(this.topicId);
 
       // this.posts.push(
       //   {
@@ -111,7 +109,23 @@
         .catch((err) => {
           throw err;
         });
-    }
+    };
+
+    $scope.$watch('topic.topics.length', () => {
+      $scope.$$postDigest(() => {
+        $('select').material_select();
+      })
+    });
+
+    this.getTopicName = (id) => {
+      for (let i = 0; i < this.topics.length; i++) {
+        if (this.topics[i].id ===  id) {
+          return this.topics[i].name;
+        }
+      }
+
+      return '';
+    };
 
     const activate = () => {
       postsSvc.getPosts()

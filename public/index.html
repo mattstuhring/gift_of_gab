@@ -9,7 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
   <body ng-controller="AuthCtrl as authCtrl">
+<div>
+  <div>
 
+  </div>
+</div>
     <!-- NAV BAR -->
       <nav class="black">
         <div class="nav-wrapper">
@@ -46,26 +50,29 @@
         <div class="row" ng-controller="TopicCtrl as topic">
 
           <div class="col s6">
-            <form class="row" name="postForm" ng-submit="post.addPost()" novalidate>
+            <form class="row" name="postForm" ng-submit="post.addPost()">
               <h4 class="center">Compose a Gab</h4>
               <div class="input-field col s12">
-                <select ng-model="post.topicId">
+                <select ng-model="post.postForm.topicId">
                   <option value="" disabled selected>Select a topic</option>
-                  <option value="{{ top.id }}" ng-repeat="top in topic.topics | orderBy : 'name'">{{top.name}}</option>
+                  <option value="{{ top.id }}" ng-repeat="top in topic.topics | orderBy : 'name'" >{{top.name}}</option>
                 </select>
                 <label>Topic</label>
               </div>
               <div class="input-field col s12">
-                <input ng-model="post.postForm.title" name="title" type="text">
-                <label for="title">Title</label>
+                <input ng-class="{'valid': postForm.title.$valid, 'invalid': postForm.title.$invalid && postForm.title.$dirty}" required ng-minlength=3 ng-model="post.postForm.title" name="title" type="text">
+                <label ng-class="{'green-text text-lighten-2': postForm.title.$valid, 'red-text text-lighten-2': postForm.title.$invalid && postForm.title.$dirty}" for="title">Title</label>
+                <span ng-show="postForm.title.$error.minlength">Must be at least 3 characters</span>
               </div>
               <div class="input-field col s12">
-                <input ng-model="post.postForm.imageUrl" name="imageUrl" type="text">
-                <label for="imageUrl">Image URL</label>
+                <input ng-class="{'valid': postForm.imageUrl.$valid, 'invalid': postForm.imageUrl.$invalid && postForm.imageUrl.$dirty}" required ng-model="post.postForm.imageUrl" name="imageUrl" type="url">
+                <label ng-class="{'green-text text-lighten-2': postForm.imageUrl.$valid, 'red-text text-lighten-2': postForm.imageUrl.$invalid && postForm.imageUrl.$dirty}" for="imageUrl">Image URL</label>
+                <!-- <span ng-show="postForm.imageUrl.$error.invalid">Please enter a valid url</span> -->
               </div>
               <div class="input-field col s12">
-                <textarea ng-model="post.postForm.description" class="materialize-textarea" name="description" type="text"></textarea>
-                <label for="description">The Gab:</label>
+                <textarea ng-class="{'valid': postForm.description.$valid, 'invalid': postForm.description.$invalid && postForm.description.$dirty}" required ng-minlength=3 ng-maxlength=60 ng-model="post.postForm.description" class="materialize-textarea" name="description" type="text"></textarea>
+                <label ng-class="{'green-text text-lighten-2': postForm.description.$valid, 'red-text text-lighten-2': postForm.description.$invalid && postForm.description.$dirty}" for="description">The Gab:</label>
+                <span ng-show="postForm.description.$error.minlength">Must be between 3 to 60 characters</span>
               </div>
               <button class="btn waves-effect waves-light" type="submit" >Submit</button>
             </form>
@@ -78,9 +85,9 @@
                 <form class="col s12" name="topicForm" ng-submit="topic.addTopic()">
                   <div class="row">
                     <div class="input-field col s8">
-                      <input ng-class="{'valid': userTopic.topic.$valid, 'invalid': userTopic.topic.$invalid && userTopic.topic.$dirty}" name="topic" type="text" ng-model="topic.topicToAdd" required ng-minlength=3>
-                      <label ng-class="{'green-text text-lighten-2': userTopic.topic.$valid, 'red-text text-lighten-2': userTopic.topic.$invalid && userTopic.topic.$dirty}" for="topic">Add Topic</label>
-                      <span ng-show="userTopic.topic.$error.minlength">must be at least 3 characters</span>
+                      <input ng-class="{'valid': topicForm.topic.$valid, 'invalid': topicForm.topic.$invalid && topicForm.topic.$dirty}" name="topic" type="text" ng-model="topic.topicToAdd" required ng-minlength=3>
+                      <label ng-class="{'green-text text-lighten-2': topicForm.topic.$valid, 'red-text text-lighten-2': topicForm.topic.$invalid && topicForm.topic.$dirty}" for="topic">Add Topic</label>
+                      <span ng-show="userTopic.topic.$error.minlength">Must be at least 3 characters</span>
                     </div>
                     <div class="col s4">
                       <button class="btn waves-effect waves-light submitbtn" type="submit">Submit</button>
@@ -89,7 +96,7 @@
                 </form>
                 <div class="collect col s12">
 
-                  <li class="collection-item" ng-repeat="top in topic.topics | filter: { name: topic.topicToAdd } | orderBy : 'name' "><div>{{top.name}}<a ng-click="topic.removeTopic(top)" href="#!" class="secondary-content"><i class="material-icons">delete</i></a></div></li>
+                  <a href="#"><li class="collection-item" ng-repeat="top in topic.topics | filter: { name: topic.topicToAdd } | orderBy : 'name' "><div>{{top.name}}</a><a ng-click="topic.removeTopic(top)" href="#!" class="secondary-content"><i class="material-icons">delete</i></a></div></li>
                 </div>
               </ul>
             </div>
