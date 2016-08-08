@@ -13,7 +13,7 @@
   TopicCtrl.$inject = ['$scope', '$http', 'topicsSvc'];
   PostCtrl.$inject = ['$scope', '$http', 'postsSvc'];
   AuthCtrl.$inject = ['auth', '$location', '$cookies'];
-  RegCtrl.$inject = ['$http', 'regSvc'];
+  RegCtrl.$inject = ['$scope', '$http', 'regSvc'];
 
   function TopicCtrl($scope, $http, topicsSvc) {
     this.topicToAdd = '';
@@ -153,16 +153,18 @@
     };
   }
 
-  function RegCtrl($http, regSvc) {
-    this.registerForm = {};
-    console.log(this.registerForm);
-    this.register = () => {
-      regSvc.register()
+  function RegCtrl($scope, $http, regSvc) {
+    this.showReg = '';
+    this.regForm = {};
+
+    this.addUser = () => {
+      regSvc.regUser(this.regForm)
         .then((user) => {
-          $location.path('/');
+          Materialize.toast('Registration successful!', 3000, 'rounded')
+          this.showReg = false;
         })
         .catch((err) => {
-          alert('Login Failed');
+          alert('Registration Failed');
         });
     };
   }

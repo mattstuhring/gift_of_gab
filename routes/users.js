@@ -8,7 +8,7 @@ const ev = require('express-validation');
 const validations = require('../validations/users');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
-router.post('/users', ev(validations.post), (req, res, next) => {
+router.post('/api/users', ev(validations.post), (req, res, next) => {
   const { username, password } = req.body;
 
   knex('users')

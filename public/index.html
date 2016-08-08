@@ -34,43 +34,42 @@
               <input id="password" type="password" ng-model="authCtrl.password">
               <label for="password">Password</label>
             </div>
-            <div class="col s1">
-              <a href="" ng-click="authCtrl.login()" class="btn waves-effect waves-light submitbtn col s12" type="submit">Login</a>
-            </div>
-            <div class="col s1 reg">
-              <a href="">Register</a>
+            <div class="col s3">
+              <a href="" ng-click="authCtrl.login()" class="btn waves-effect waves-light submitbtn" type="submit">Login</a>
+              <a class="reg" ng-click="showReg=true" href="#">Register</a>
             </div>
           </div>
         </form>
       </div>
 
       <div class="row" ng-controller="RegCtrl as reg">
-        <form class="col s9 offset-s3" name="registerForm">
+        <form class="col s9 offset-s3" name="regForm" ng-submit="reg.addUser()" ng-show="showReg" novalidate>
           <div class="row">
             <div class="input-field col s6">
-              <input id="firstName" type="text" ng-model="reg.firstName">
+              <input id="firstName" type="text" name="firstName" ng-model="reg.regForm.firstName">
               <label for="firstName">First Name</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s6">
-              <input id="lastName" type="text" ng-model="reg.lastName">
+              <input id="lastName" type="text" name="lastName" ng-model="reg.regForm.lastName">
               <label for="lastName">Last Name</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s6">
-              <input id="username" type="text" ng-model="reg.username">
+              <input id="username" type="text" name="username" ng-model="reg.regForm.username">
               <label for="username">Username</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s6">
-              <input id="password" type="password" ng-model="reg.password">
+              <input id="password" type="password" name="password" ng-model="reg.regForm.password">
               <label for="password">Password</label>
             </div>
           </div>
-          <button class="btn waves-effect waves-light" ng-click="reg.register()" >Register</button>
+          <button class="btn waves-effect waves-light" type="submit">Register</button>
+          <a href="#" ng-click="showReg=false">Hide</a>
         </form>
       </div>
 

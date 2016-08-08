@@ -102,14 +102,15 @@
 
   function regSvc($http) {
     return {
-      register: (firstName, lastName, username, password) => {
-        return $http.post('/api/users', { firstName, lastName, username, password })
-        .then((res) => {
-          return res.data;
-        })
-        .catch((err) => {
-          throw err;
-        });
+      regUser: (user) => {
+        console.log(user);
+        return $http.post('/api/users', user)
+          .then((res) => {
+            return res.data;
+          })
+          .catch((err) => {
+            throw err;
+          });
       }
     }
   }
