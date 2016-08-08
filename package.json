@@ -7,9 +7,11 @@
     "test": "mocha",
     "start": "node server.js",
     "knex": "knex",
-    "nodemon": "nodemon"
+    "nodemon": "nodemon",
+    "heroku-postbuild": "knex migrate:latest",
+    "nf": "nf start"
   },
-  "author": "Ian Smith <ian.smith@galvanize.com>",
+  "author": "Matt Stuhring ",
   "contributors": [
     "Ken McGrady <ken.mcgrady@galvanize.com>"
   ],
@@ -21,6 +23,7 @@
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "express-validation": "^1.0.0",
+    "foreman": "^1.4.1",
     "humps": "^1.1.0",
     "joi": "^8.4.2",
     "jsonwebtoken": "^7.1.7",
@@ -34,6 +37,6 @@
     "nodemon": "^1.9.2"
   },
   "engines": {
-    "node": "6.2.2"
+    "node": "6.3.1"
   }
 }
