@@ -6,10 +6,12 @@
   app.factory('topicsSvc', topicsSvc);
   app.factory('postsSvc', postsSvc);
   app.factory('auth', auth);
+  app.factory('regSvc', regSvc);
 
   topicsSvc.$inject = ['$http'];
   postsSvc.$inject = ['$http'];
   auth.$inject = ['$http'];
+  regSvc.$inject = ['$http'];
 
   function topicsSvc($http) {
     return {
@@ -96,5 +98,19 @@
           });
       }
     };
+  }
+
+  function regSvc($http) {
+    return {
+      register: (firstName, lastName, username, password) => {
+        return $http.post('/api/users', { firstName, lastName, username, password })
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          throw err;
+        });
+      }
+    }
   }
 }());
