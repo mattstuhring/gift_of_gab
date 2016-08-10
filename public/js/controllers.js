@@ -31,7 +31,10 @@
         });
     };
 
-
+    this.filterById = (id) => {
+      console.log(id);
+      this.filterName = id;
+    };
 
 
     this.removeTopic = (top) => {
@@ -90,12 +93,11 @@ console.log(this.postForm);
     };
 
     this.addPostTopic = (topic) => {
-      console.log(topic.id);
-      console.log(topic.name);
       this.topicToAdd = {
         id: topic.id,
         name: topic.name
       };
+
       this.postForm.topicId = this.topicToAdd.id;
       this.postForm.topic = this.topicToAdd.name;
     };

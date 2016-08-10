@@ -46,26 +46,27 @@
       <form class="col s9 offset-s3" name="regForm" ng-submit="reg.addUser()" ng-show="showReg" novalidate>
         <div class="row">
           <div class="input-field col s6">
-            <input id="firstName" type="text" name="firstName" ng-model="reg.regForm.firstName">
-            <label for="firstName">First Name</label>
+            <input ng-class="{'valid': regForm.firstName.$valid, 'invalid': regForm.firstName.$invalid && regForm.firstName.$dirty}" id="firstName" type="text" name="firstName" ng-model="reg.regForm.firstName" required>
+            <label ng-class="{'green-text text-lighten-2': regForm.firstName.$valid, 'red-text text-lighten-2': regForm.firstName.$invalid && regForm.firstName.$dirty}" for="firstName">First Name</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
-            <input id="lastName" type="text" name="lastName" ng-model="reg.regForm.lastName">
-            <label for="lastName">Last Name</label>
+            <input ng-class="{'valid': regForm.lastName.$valid, 'invalid': regForm.lastName.$invalid && regForm.lastName.$dirty}" id="lastName" type="text" name="lastName" ng-model="reg.regForm.lastName" required>
+            <label ng-class="{'green-text text-lighten-2': regForm.lastName.$valid, 'red-text text-lighten-2': regForm.lastName.$invalid && regForm.lastName.$dirty}" for="lastName">Last Name</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
-            <input id="username" type="text" name="username" ng-model="reg.regForm.username">
-            <label for="username">Username</label>
+            <input ng-class="{'valid': regForm.username.$valid, 'invalid': regForm.username.$invalid && regForm.username.$dirty}" id="username" type="text" name="username" ng-model="reg.regForm.username" ng-minlength="3" ng-maxlength="31" required>
+            <label ng-class="{'green-text text-lighten-2': regForm.username.$valid, 'red-text text-lighten-2': regForm.username.$invalid && regForm.username.$dirty}" for="username">Username</label>
+            <span ng-show="regForm.username.$error.minlength">Must be at least 3 characters</span>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
-            <input id="password" type="password" name="password" ng-model="reg.regForm.password">
-            <label for="password">Password</label>
+            <input ng-class="{'valid': regForm.password.$valid, 'invalid': regForm.password.$invalid && regForm.password.$dirty}" id="password" type="password" name="password" ng-model="reg.regForm.password" required>
+            <label ng-class="{'green-text text-lighten-2': regForm.password.$valid, 'red-text text-lighten-2': regForm.password.$invalid && regForm.password.$dirty}" for="password">Password</label>
           </div>
         </div>
         <button class="btn waves-effect waves-light" type="submit">Register</button>
@@ -93,7 +94,16 @@
                 </div>
               </form>
               <div class="collect col s12">
-                <a href="#"><li class="collection-item" ng-click="post.addPostTopic(top)" ng-repeat="top in topic.topics | filter: { name: topic.topicToAdd } | orderBy : 'name' "><div>{{top.name}}</a><a ng-click="topic.removeTopic(top)" href="#!" class="secondary-content"><i class="material-icons">delete</i></a></div></li>
+                <a href="#">
+                  <li class="collection-item" ng-click="post.addPostTopic(top)" ng-repeat="top in topic.topics | filter: { name: topic.topicToAdd } | orderBy : 'name' ">
+                    {{top.name}}</a>
+                      <a ng-click="topic.removeTopic(top)" href="#!" class="secondary-content">
+                        <i class="material-icons">delete</i>
+                      </a>
+                      <a ng-click="topic.filterById(top.id)" href="#!" class="secondary-content">
+                        <i class="material-icons">search</i>
+                      </a>
+                  </li>
               </div>
             </ul>
           </div>
@@ -119,7 +129,7 @@
               <input type="hidden" name="topicId" ng-model="post.postForm.topicId" value="{{post.postForm.topicId}}">
             </div>
             <div class="input-field col s12">
-              <i class="material-icons prefix">title</i>
+              <i class="material-icons prefix">subject</i>
               <input ng-class="{'valid': postForm.title.$valid, 'invalid': postForm.title.$invalid && postForm.title.$dirty}" required ng-minlength=3 ng-model="post.postForm.title" name="title" type="text">
               <label ng-class="{'green-text text-lighten-2': postForm.title.$valid, 'red-text text-lighten-2': postForm.title.$invalid && postForm.title.$dirty}" for="title">Title</label>
               <span ng-show="postForm.title.$error.minlength">Must be at least 3 characters</span>
@@ -138,10 +148,12 @@
             <button class="btn waves-effect waves-light right" type="submit" >Submit</button>
           </form>
         </div>
-
+        <div class="divider"></div>
+        <div class="section">
+        </div>
 
         <div class="row">
-          <div class="col s12" ng-repeat="p in post.posts">
+          <div class="col s12" ng-repeat="p in post.posts | filter: { topicId: topic.filterName } | orderBy : 'topicId' ">
             <div class="card horizontal">
               <div class="card-image">
                 <img class="responsive-img" ng-src="{{p.imageUrl}}">
