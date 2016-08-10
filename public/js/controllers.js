@@ -1,6 +1,7 @@
 (function() {
   'use strict';
 
+  $('select').material_select();
   $(".button-collapse").sideNav();
 
   const app = angular.module('giftGab');
@@ -11,9 +12,9 @@
   app.controller('RegCtrl', RegCtrl);
 
   TopicCtrl.$inject = ['$scope', '$http', 'topicsSvc'];
-  PostCtrl.$inject = ['$scope', '$http', 'postsSvc'];
+  PostCtrl.$inject = ['$scope', '$http', 'postsSvc', '$cookies'];
   AuthCtrl.$inject = ['auth', '$location', '$cookies'];
-  RegCtrl.$inject = ['$scope', '$http', 'regSvc'];
+  RegCtrl.$inject = ['$scope', '$http', '$location', 'regSvc'];
 
   function TopicCtrl($scope, $http, topicsSvc) {
     this.topicToAdd = '';
@@ -29,6 +30,9 @@
           throw err;
         });
     };
+
+
+
 
     this.removeTopic = (top) => {
       const i = this.topics.indexOf(top);
@@ -64,19 +68,36 @@
     activate();
   }
 
+// POST controller
 
-  function PostCtrl($scope, $http, postsSvc) {
+  function PostCtrl($scope, $http, postsSvc, $cookies) {
     this.postForm = {};
     this.postToAdd = {};
     this.posts = [];
     this.topics = [];
-    this.topicName = '';
+    this.topicToAdd = {};
 
     this.addPost = () => {
+console.log(this.postForm);
+      postsSvc.postPost(this.postForm)
+        .then((post) => {
+          this.posts.push(post);
+          this.postToAdd = '';
+        })
+        .catch((err) => {
+          throw err;
+        });
+    };
 
-      console.log(this.postForm);
-
-
+    this.addPostTopic = (topic) => {
+      console.log(topic.id);
+      console.log(topic.name);
+      this.topicToAdd = {
+        id: topic.id,
+        name: topic.name
+      };
+      this.postForm.topicId = this.topicToAdd.id;
+      this.postForm.topic = this.topicToAdd.name;
     };
 
     this.upRating = (post) => {
@@ -107,16 +128,6 @@
       })
     });
 
-    this.getTopicName = (id) => {
-      for (let i = 0; i < this.topics.length; i++) {
-        if (this.topics[i].id ===  id) {
-          return this.topics[i].name;
-        }
-      }
-
-      return '';
-    };
-
     const activate = () => {
       postsSvc.getPosts()
         .then((postsList) => {
@@ -141,10 +152,11 @@
     this.login = () => {
       auth.login(this.username, this.password)
         .then((user) => {
+          Materialize.toast('Login successful!', 3000, 'rounded');
           $location.path('/');
         })
         .catch((err) => {
-          alert('Login Failed');
+          Materialize.toast('Login failed!!!', 3000, 'rounded');
         });
     };
 
@@ -153,18 +165,19 @@
     };
   }
 
-  function RegCtrl($scope, $http, regSvc) {
+  function RegCtrl($scope, $http, $location, regSvc) {
     this.showReg = '';
     this.regForm = {};
 
     this.addUser = () => {
       regSvc.regUser(this.regForm)
         .then((user) => {
-          Materialize.toast('Registration successful!', 3000, 'rounded')
+          Materialize.toast('Registration successful!', 3000, 'rounded');
           this.showReg = false;
+          $location.path('/');
         })
         .catch((err) => {
-          alert('Registration Failed');
+          Materialize.toast('Registration failed!!!', 3000, 'rounded');
         });
     };
   }

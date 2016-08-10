@@ -47,7 +47,7 @@
             throw err;
           });
       },
-      addPost: (post) => {
+      postPost: (post) => {
         return $http.post('/api/posts', post)
           .then((res) => {
             return res.data;

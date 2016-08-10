@@ -23,8 +23,9 @@ router.get('/api/posts', (req, res, next) => {
 });
 
 router.post('/api/posts', checkAuth, ev(validations.post), (req, res, next) => {
-  const { title, imageUrl, description, rating, userId, topicId } = req.body;
-  const newPost = { title, imageUrl, description, rating, userId, topicId };
+  const { title, imageUrl, description, topicId } = req.body;
+  const userId = req.token.userId;
+  const newPost = { title, imageUrl, description, userId, topicId };
   const row = decamelizeKeys(newPost);
 
   knex('posts')
