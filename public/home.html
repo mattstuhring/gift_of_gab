@@ -14,7 +14,7 @@
                   <span ng-show="userTopic.topic.$error.minlength">Must be at least 3 characters</span>
                 </div>
                 <div class="col s4">
-                  <button class="btn waves-effect waves-light submitbtn col s12 black" type="submit">Submit</button>
+                  <button class="btn waves-effect waves-light submitbtn col s12 red darken-4" type="submit">Submit</button>
                 </div>
               </div>
             </form>
@@ -22,7 +22,7 @@
               <li class="collection-item" ng-click="post.addPostTopic(top)" ng-repeat="top in topic.topics | filter: { name: topic.topicToAdd } | orderBy : 'name' ">
                 <a class="black-text" href="#/home">{{top.name}}</a>
                 <a ng-click="topic.removeTopic(top)" href="#!" class="secondary-content">
-                  <i class="material-icons red-text text-darken-4">delete</i>
+                  <i class="material-icons grey-text">delete</i>
                 </a>
                 <a ng-click="topic.filterById(top.id)" href="#/home" class="secondary-content">
                   <i class="material-icons green-text text-darken-4">search</i>
@@ -57,7 +57,7 @@
             <label ng-class="{'green-text text-lighten-2': postForm.description.$valid, 'red-text text-lighten-2': postForm.description.$invalid && postForm.description.$dirty}" for="description">The Gab:</label>
             <span ng-show="postForm.description.$error.minlength">Must be between 3 to 60 characters</span>
           </div>
-          <button class="btn waves-effect waves-light right black" type="submit" >Submit</button>
+          <button class="btn waves-effect waves-light right red darken-4" type="submit" >Submit</button>
         </form>
       </div>
     </div>
