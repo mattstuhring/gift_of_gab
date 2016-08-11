@@ -1,9 +1,9 @@
-<div >
+<div>
   <div class="section"></div>
   <div class="row">
     <form class="col s12" novalidate>
       <div class="row">
-        <div class="input-field col s3 offset-s2">
+        <div class="input-field col s3 offset-s4">
           <i class="material-icons prefix">person</i>
           <input id="username" type="text" ng-model="authCtrl.username">
           <label for="username">Username</label>
@@ -13,17 +13,19 @@
           <input id="password" type="password" ng-model="authCtrl.password">
           <label for="password">Password</label>
         </div>
-        <div class="col s3">
+        <div class="col s2">
           <a href="" ng-click="authCtrl.login()" class="btn waves-effect waves-light submitbtn" type="submit">Login</a>
-          <a class="reg" ng-click="showReg=true" href="#">Register</a>
+        </div>
+        <div class="reg col s1 center">
+          <a ng-click="showReg=true" href="">Register</a>
         </div>
       </div>
     </form>
   </div>
 
   <div class="row" ng-controller="RegCtrl as reg">
-    <form class="col s9 offset-s3" name="regForm" ng-submit="reg.addUser()" ng-show="showReg" novalidate>
-      <h2>Register New User</h2>
+    <form class="col s7 offset-s5" name="regForm" ng-submit="reg.addUser()" ng-show="showReg">
+      <h4>Register New User</h4>
       <div class="row">
         <div class="input-field col s6">
           <input ng-class="{'valid': regForm.firstName.$valid, 'invalid': regForm.firstName.$invalid && regForm.firstName.$dirty}" id="firstName" type="text" name="firstName" ng-model="reg.regForm.firstName" required>
@@ -50,7 +52,6 @@
         </div>
       </div>
       <button class="btn waves-effect waves-light" type="submit">Register</button>
-      <a href="#" ng-click="showReg">Hide</a>
     </form>
   </div>
 </div>

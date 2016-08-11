@@ -11,12 +11,12 @@
   app.controller('AuthCtrl', AuthCtrl);
   app.controller('RegCtrl', RegCtrl);
 
-  TopicCtrl.$inject = ['$scope', '$http', 'topicsSvc'];
+  TopicCtrl.$inject = ['$scope', '$http', '$location', 'topicsSvc'];
   PostCtrl.$inject = ['$scope', '$http', 'postsSvc', '$cookies'];
   AuthCtrl.$inject = ['auth', '$location', '$cookies'];
   RegCtrl.$inject = ['$scope', '$http', '$location', 'regSvc'];
 
-  function TopicCtrl($scope, $http, topicsSvc) {
+  function TopicCtrl($scope, $http, $location, topicsSvc) {
     this.topicToAdd = '';
     this.topics = [];
 
@@ -175,7 +175,7 @@ console.log(this.postForm);
         .then((user) => {
           Materialize.toast('Registration successful!', 3000, 'rounded');
           this.showReg = false;
-          $location.path('/');
+          $location.path('/home');
         })
         .catch((err) => {
           Materialize.toast('Registration failed!!!', 3000, 'rounded');

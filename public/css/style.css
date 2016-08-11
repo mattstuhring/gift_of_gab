@@ -13,6 +13,27 @@
 }
 
 .reg {
-  margin-left: 10px;
-  margin-top: 40px;
+  margin-top: 10px;
+}
+
+body {
+  background-image: url("madmen.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.picktopic {
+  margin-bottom: 0 !important;
+}
+
+.marginT {
+  margin-top: 20px;
+}
+
+.title {
+  font: 4.1rem 'Nixie One' !important;
+}
+
+label, h4 {
+  font: 400 80px/1.2 'Nixie One', Georgia, serif;
 }
