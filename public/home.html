@@ -14,18 +14,18 @@
                   <span ng-show="userTopic.topic.$error.minlength">Must be at least 3 characters</span>
                 </div>
                 <div class="col s4">
-                  <button class="btn waves-effect waves-light submitbtn" type="submit">Submit</button>
+                  <button class="btn waves-effect waves-light submitbtn col s12 black" type="submit">Submit</button>
                 </div>
               </div>
             </form>
             <div class="collect col s12">
               <li class="collection-item" ng-click="post.addPostTopic(top)" ng-repeat="top in topic.topics | filter: { name: topic.topicToAdd } | orderBy : 'name' ">
-                <a href="#">{{top.name}}</a>
+                <a class="black-text" href="#/home">{{top.name}}</a>
                 <a ng-click="topic.removeTopic(top)" href="#!" class="secondary-content">
-                  <i class="material-icons">delete</i>
+                  <i class="material-icons red-text text-darken-4">delete</i>
                 </a>
                 <a ng-click="topic.filterById(top.id)" href="#/home" class="secondary-content">
-                  <i class="material-icons">search</i>
+                  <i class="material-icons green-text text-darken-4">search</i>
                 </a>
               </li>
             </div>
@@ -37,7 +37,7 @@
         <form class="row" name="postForm" ng-submit="post.addPost()">
           <h4 class="center">Compose a Gab</h4>
           <div class="input-field col s6 offset-s3">
-            <input type="text" name="topic" ng-model="post.postForm.topic" readonly = "readonly" class="blue-text center picktopic" placeholder="Click on a topic">
+            <input type="text" name="topic" ng-model="post.postForm.topic" readonly = "readonly" class="black-text center picktopic" placeholder="Click on a topic">
             <input type="hidden" name="topicId" ng-model="post.postForm.topicId" value="{{post.postForm.topicId}}">
           </div>
           <div class="input-field col s12">
@@ -57,7 +57,7 @@
             <label ng-class="{'green-text text-lighten-2': postForm.description.$valid, 'red-text text-lighten-2': postForm.description.$invalid && postForm.description.$dirty}" for="description">The Gab:</label>
             <span ng-show="postForm.description.$error.minlength">Must be between 3 to 60 characters</span>
           </div>
-          <button class="btn waves-effect waves-light right" type="submit" >Submit</button>
+          <button class="btn waves-effect waves-light right black" type="submit" >Submit</button>
         </form>
       </div>
     </div>
@@ -82,13 +82,13 @@
                   </div>
                   <div class="col s2">
                     <div class="row rating">
-                      <a href="" ng-click="post.upRating(p)"><i class="material-icons right">thumb_up</i></a>
+                      <a href="" ng-click="post.upRating(p)"><i class="material-icons right green-text text-darken-4">thumb_up</i></a>
                     </div>
                     <div class="row rating">
                       <p class="right">{{p.rating}}</p>
                     </div>
                     <div class="row">
-                      <a href="" ng-click="post.downRating(p)"><i class="material-icons right">thumb_down</i></a>
+                      <a href="" ng-click="post.downRating(p)"><i class="material-icons right red-text text-darken-4">thumb_down</i></a>
                     </div>
                   </div>
                 </div>

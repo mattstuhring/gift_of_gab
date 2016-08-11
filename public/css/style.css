@@ -20,6 +20,7 @@ body {
   background-image: url("madmen.jpg");
   background-attachment: fixed;
   background-repeat: no-repeat;
+  font: 400 20px/1.2 'Nixie One', Georgia, serif;
 }
 
 .picktopic {
@@ -32,8 +33,13 @@ body {
 
 .title {
   font: 4.1rem 'Nixie One' !important;
+  margin-left: 15px;
 }
 
-label, h4 {
-  font: 400 80px/1.2 'Nixie One', Georgia, serif;
+.log {
+  margin-right: 15px;
+}
+
+.regForm {
+  margin-left: 38.333333% !important;
 }

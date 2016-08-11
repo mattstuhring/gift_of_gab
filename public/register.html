@@ -1,0 +1,31 @@
+<div class="row">
+  <form class="col s7 offset-s4 regForm" name="regForm" ng-submit="reg.addUser()">
+    <h2 class="center">Register New User</h2>
+    <div class="row">
+      <div class="input-field col s6">
+        <input ng-class="{'valid': regForm.firstName.$valid, 'invalid': regForm.firstName.$invalid && regForm.firstName.$dirty}" id="firstName" type="text" name="firstName" ng-model="reg.regForm.firstName" required>
+        <label ng-class="{'green-text text-lighten-2': regForm.firstName.$valid, 'red-text text-lighten-2': regForm.firstName.$invalid && regForm.firstName.$dirty}" for="firstName">First Name</label>
+      </div>
+      <div class="input-field col s6">
+        <input ng-class="{'valid': regForm.lastName.$valid, 'invalid': regForm.lastName.$invalid && regForm.lastName.$dirty}" id="lastName" type="text" name="lastName" ng-model="reg.regForm.lastName" required>
+        <label ng-class="{'green-text text-lighten-2': regForm.lastName.$valid, 'red-text text-lighten-2': regForm.lastName.$invalid && regForm.lastName.$dirty}" for="lastName">Last Name</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <input ng-class="{'valid': regForm.username.$valid, 'invalid': regForm.username.$invalid && regForm.username.$dirty}" id="username" type="text" name="username" ng-model="reg.regForm.username" ng-minlength="3" ng-maxlength="31" required>
+        <label ng-class="{'green-text text-lighten-2': regForm.username.$valid, 'red-text text-lighten-2': regForm.username.$invalid && regForm.username.$dirty}" for="username">Username</label>
+        <span ng-show="regForm.username.$error.minlength">Must be at least 3 characters</span>
+      </div>
+      <div class="input-field col s6">
+        <input ng-class="{'valid': regForm.password.$valid, 'invalid': regForm.password.$invalid && regForm.password.$dirty}" id="password" type="password" name="password" ng-model="reg.regForm.password" required>
+        <label ng-class="{'green-text text-lighten-2': regForm.password.$valid, 'red-text text-lighten-2': regForm.password.$invalid && regForm.password.$dirty}" for="password">Password</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 center">
+        <button class="btn waves-effect waves-light black" type="submit">Register</button>
+      </div>
+    </div>
+  </form>
+</div>

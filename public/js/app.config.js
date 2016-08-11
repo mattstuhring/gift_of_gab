@@ -10,11 +10,11 @@
         controller: 'PostCtrl',
         controllerAs: 'post'
       })
-      // .when('/users/:id', {
-      //   templateUrl: 'home.html',
-      //   controller: 'PostCtrl',
-      //   controllerAs: 'post'
-      // })
+      .when('/register', {
+        templateUrl: 'register.html',
+        controller: 'RegCtrl',
+        controllerAs: 'reg'
+      })
       .when('/', {
         templateUrl: 'login.html',
         controller: 'AuthCtrl',
