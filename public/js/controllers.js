@@ -32,7 +32,6 @@
     };
 
     this.filterById = (id) => {
-      console.log(id);
       this.filterName = id;
     };
 
@@ -155,7 +154,7 @@ console.log(this.postForm);
       auth.login(this.username, this.password)
         .then((user) => {
           Materialize.toast('Login successful!', 3000, 'rounded');
-          $location.path('/');
+          $location.path('/home');
         })
         .catch((err) => {
           Materialize.toast('Login failed!!!', 3000, 'rounded');

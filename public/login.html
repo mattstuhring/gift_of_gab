@@ -1,6 +1,7 @@
-<div>
+<div >
+  <div class="section"></div>
   <div class="row">
-    <form class="col s12">
+    <form class="col s12" novalidate>
       <div class="row">
         <div class="input-field col s3 offset-s2">
           <i class="material-icons prefix">person</i>
@@ -13,38 +14,43 @@
           <label for="password">Password</label>
         </div>
         <div class="col s3">
-          <a href="" ng-click="authCtrl.login()" class="btn waves-effect waves-light submitbtn col s5" type="submit">Login</a>
+          <a href="" ng-click="authCtrl.login()" class="btn waves-effect waves-light submitbtn" type="submit">Login</a>
+          <a class="reg" ng-click="showReg=true" href="#">Register</a>
         </div>
       </div>
     </form>
   </div>
-  <div class="row">
-    <form class="col s9 offset-s3" name="registerForm" ng-submit="">
+
+  <div class="row" ng-controller="RegCtrl as reg">
+    <form class="col s9 offset-s3" name="regForm" ng-submit="reg.addUser()" ng-show="showReg" novalidate>
+      <h2>Register New User</h2>
       <div class="row">
         <div class="input-field col s6">
-          <input id="firstName" type="text" ng-model="">
-          <label for="firstName">First Name</label>
+          <input ng-class="{'valid': regForm.firstName.$valid, 'invalid': regForm.firstName.$invalid && regForm.firstName.$dirty}" id="firstName" type="text" name="firstName" ng-model="reg.regForm.firstName" required>
+          <label ng-class="{'green-text text-lighten-2': regForm.firstName.$valid, 'red-text text-lighten-2': regForm.firstName.$invalid && regForm.firstName.$dirty}" for="firstName">First Name</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s6">
-          <input id="lastName" type="text" ng-model="">
-          <label for="lastName">Last Name</label>
+          <input ng-class="{'valid': regForm.lastName.$valid, 'invalid': regForm.lastName.$invalid && regForm.lastName.$dirty}" id="lastName" type="text" name="lastName" ng-model="reg.regForm.lastName" required>
+          <label ng-class="{'green-text text-lighten-2': regForm.lastName.$valid, 'red-text text-lighten-2': regForm.lastName.$invalid && regForm.lastName.$dirty}" for="lastName">Last Name</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s6">
-          <input id="username" type="text" ng-model="">
-          <label for="username">Username</label>
+          <input ng-class="{'valid': regForm.username.$valid, 'invalid': regForm.username.$invalid && regForm.username.$dirty}" id="username" type="text" name="username" ng-model="reg.regForm.username" ng-minlength="3" ng-maxlength="31" required>
+          <label ng-class="{'green-text text-lighten-2': regForm.username.$valid, 'red-text text-lighten-2': regForm.username.$invalid && regForm.username.$dirty}" for="username">Username</label>
+          <span ng-show="regForm.username.$error.minlength">Must be at least 3 characters</span>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s6">
-          <input id="password" type="password" ng-model="">
-          <label for="password">Password</label>
+          <input ng-class="{'valid': regForm.password.$valid, 'invalid': regForm.password.$invalid && regForm.password.$dirty}" id="password" type="password" name="password" ng-model="reg.regForm.password" required>
+          <label ng-class="{'green-text text-lighten-2': regForm.password.$valid, 'red-text text-lighten-2': regForm.password.$invalid && regForm.password.$dirty}" for="password">Password</label>
         </div>
       </div>
       <button class="btn waves-effect waves-light" type="submit">Register</button>
+      <a href="#" ng-click="showReg">Hide</a>
     </form>
   </div>
 </div>
