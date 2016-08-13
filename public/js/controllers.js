@@ -80,7 +80,6 @@
     this.topicToAdd = {};
 
     this.addPost = () => {
-console.log(this.postForm);
       postsSvc.postPost(this.postForm)
         .then((post) => {
           this.posts.push(post);
@@ -153,11 +152,11 @@ console.log(this.postForm);
     this.login = () => {
       auth.login(this.username, this.password)
         .then((user) => {
-          Materialize.toast('Login successful!', 3000, 'rounded');
+          Materialize.toast('Login successful', 3000, 'rounded');
           $location.path('/home');
         })
         .catch((err) => {
-          Materialize.toast('Login failed!!!', 3000, 'rounded');
+          Materialize.toast('Login failed', 3000, 'rounded');
         });
     };
 
@@ -173,12 +172,12 @@ console.log(this.postForm);
     this.addUser = () => {
       regSvc.regUser(this.regForm)
         .then((user) => {
-          Materialize.toast('Registration successful!', 3000, 'rounded');
+          Materialize.toast('Registration successful', 3000, 'rounded');
           this.showReg = false;
-          $location.path('/home');
+          $location.path('/');
         })
         .catch((err) => {
-          Materialize.toast('Registration failed!!!', 3000, 'rounded');
+          Materialize.toast('Registration failed', 3000, 'rounded');
         });
     };
   }
