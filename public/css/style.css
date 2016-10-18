@@ -21,6 +21,8 @@ body {
   background-attachment: fixed;
   background-repeat: no-repeat;
   font: 400 20px/1.2 'Nixie One', Georgia, serif;
+  background-size: cover;
+  background-position:center;
 }
 
 .picktopic {
@@ -28,7 +30,7 @@ body {
 }
 
 .marginT {
-  margin-top: 20px;
+  margin-top: 60px;
 }
 
 .title {
@@ -42,4 +44,8 @@ body {
 
 .regForm {
   margin-left: 38.333333% !important;
+}
+
+.pImg {
+  width: 500px;
 }

@@ -63,9 +63,9 @@
     </div>
     <div class="container row">
       <div class="col s12 marginT" ng-repeat="p in post.posts | filter: { topicId: topic.filterName } | orderBy : 'topicId' ">
-        <div class="card horizontal">
-          <div class="card-image">
-            <img class="responsive-img" ng-src="{{p.imageUrl}}">
+        <div class="card horizontal medium">
+          <div class="card-image pImg">
+            <img ng-src="{{p.imageUrl}}" class="responsive-img">
           </div>
           <div class="card-stacked">
             <div class="card-content">

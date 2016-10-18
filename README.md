@@ -1,6 +1,7 @@
-# Blueit - A Reddit clone written in Angular
+# Gift of Gab - Social news aggregation, web content rating, and discussion website written in Angular.  Basically a Reddit clone.
 
-This assignment is divided into multiple parts.
+### Landing page:
+![optional caption text](gog.png)
 
-1. [Server Setup](1_server_setup.md)
-1. [User Interface Setup](2_ui_setup.md)
+### Logged in user:
+![optional caption text](http://i.giphy.com/3oriOh1b1bgmTVikta.gif)
