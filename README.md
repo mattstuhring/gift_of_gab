@@ -4,4 +4,4 @@
 ![optional caption text](gog.png)
 
 ### Logged in user:
-![optional caption text](http://i.giphy.com/3oz8xHd3Ay94THbGqk.gif)
+![optional caption text](https://i.giphy.com/3oz8xHd3Ay94THbGqk.gif)
